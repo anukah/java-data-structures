@@ -18,6 +18,6 @@ public class Main {
         binarySearchTree.inorder();
         System.out.println();
         binarySearchTree.postorder();
-        binarySearchTree.searchLevel(30);
+        binarySearchTree.searchLevel(50);
     }
 }
