@@ -1,6 +1,6 @@
 package LinkedLists.Doubly;
 
-public class Node {
+class Node {
     private int data;
     private Node next;
     private Node prev;

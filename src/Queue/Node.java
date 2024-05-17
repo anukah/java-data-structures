@@ -1,6 +1,6 @@
 package Queue;
 
-public class Node {
+class Node {
     private int data;
     private Node next;
 

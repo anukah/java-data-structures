@@ -1,6 +1,6 @@
 package BinarySearchTrees;
 
-public class Node {
+class Node {
     int key;
     Node left;
     Node right;

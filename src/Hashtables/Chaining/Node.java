@@ -1,6 +1,6 @@
 package Hashtables.Chaining;
 
-public class Node {
+class Node {
     private int data;
     protected Node next;
 

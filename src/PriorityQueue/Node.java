@@ -1,6 +1,6 @@
 package PriorityQueue;
 
-public class Node {
+class Node {
     private int data;
     private int priority;
     private Node next;
