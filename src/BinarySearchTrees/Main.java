@@ -19,5 +19,6 @@ public class Main {
         System.out.println();
         binarySearchTree.postorder();
         binarySearchTree.searchLevel(50);
+        System.out.println(binarySearchTree.search(50).key);
     }
 }
