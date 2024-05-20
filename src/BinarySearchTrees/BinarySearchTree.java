@@ -19,6 +19,15 @@ public class BinarySearchTree {
         }
         return root;
     }
+    public Node search(int data){
+        if (searchHelper(root, data) == null) System.out.println("value does not exist!");
+        return searchHelper(root,data);
+    }
+    private Node searchHelper(Node root, int data){
+        if (root == null || root.key == data){ return root;}
+        if (data<root.key){return searchHelper(root.left, data);}
+        else {return searchHelper(root.right, data);}
+    }
     public void searchLevel(int data) {
         System.out.println();
         System.out.println("The letter "+data+" is found on level " + searchLevelRecursive(root, data, 0));
