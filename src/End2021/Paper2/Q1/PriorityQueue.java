@@ -1,4 +1,4 @@
-package End2021.Q1;
+package End2021.Paper2.Q1;
 
 public class PriorityQueue {
     Node front;

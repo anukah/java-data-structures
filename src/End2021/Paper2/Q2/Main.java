@@ -1,4 +1,4 @@
-package End2021.Q2;
+package End2021.Paper2.Q2;
 
 public class Main {
     public static void main(String[] args) {
