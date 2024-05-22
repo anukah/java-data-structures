@@ -8,10 +8,7 @@ public class Main {
         for (int i = 0; i < characters.length; i++) {
             bst.insert(characters[i],characterCodes[i]);
         }
-        bst.encrypt("‘hello helgout’");
-
-
-
-
+        bst.encrypt("“Defend Paris to the last, destroy all bridges over the Seine and devastate the city”.");
+        bst.decrypt("0010_0/01_1/010_2/1001_3/0100_4/0010_5/0011_6/001_7/@/011_9/0101_10/@/0011_12/01_13/100_14/0010_15/,/@/0100_18/000_19/000_20/@/1100_22/01_23/010_24/1101_25/0_26/0101_27/@/010_29/0_30/00_31/010_32/0_33/0100_34/00_35/");
     }
 }
