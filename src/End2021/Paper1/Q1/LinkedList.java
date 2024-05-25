@@ -72,7 +72,7 @@ public class LinkedList {
     public void display(){
         Node temp = front;
         while(temp!=null){
-            System.out.println(temp.getStudent().getRegNo());
+            System.out.print(temp.getStudent().getRegNo() + ", ");
             temp = temp.next;
         }
     }

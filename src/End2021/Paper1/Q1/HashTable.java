@@ -11,19 +11,13 @@ public class HashTable {
         }
     }
     private int hashFunction(String regNo){
-        String[] parts = regNo.toUpperCase().trim().split("/");
-        switch (parts[0]) {
-            case "S": return 0;
-            case "MED": return 1;
-            case "A": return 2;
-            case "MG": return 3;
-            case "AHS": return 4;
-            case "VS": return 5;
-            case "E": return 6;
-            case "AG": return 7;
-            case "D": return 8;
-            default: return 9;
+        String[] faculties = {"S","MED","A","MG","AHS","VS","E","AG","D"};
+        for (int i = 0; i < faculties.length; i++) {
+            if (regNo.toUpperCase().trim().split("/")[0].equals(faculties[i])){
+                return i;
+            }
         }
+        return 9;
     }
     public void insert(String regNo, String name, int age, String gender, String events){
         hashTable[hashFunction(regNo)].insertRear(regNo, name, age, gender, events);
@@ -37,8 +31,9 @@ public class HashTable {
     }
     public void display(){
         for (int i = 0; i < size; i++) {
-            System.out.println(i+"  :  ");
+            System.out.print(i+"  :  ");
             hashTable[i].display();
+            System.out.println();
         }
     }
 }

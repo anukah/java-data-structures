@@ -5,7 +5,8 @@ public class Main {
         HashTable ht = new HashTable(10);
         ht.insert("S/21/111","Amila",27,"Male","Karate");
         ht.search("S/21/111");
-        ht.delete("S/21/111");
-        ht.search("S/21/111");
+//        ht.delete("S/21/111");
+//        ht.search("S/21/111");
+        ht.display();
     }
 }
