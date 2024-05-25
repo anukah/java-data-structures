@@ -2,9 +2,11 @@ package End2021.Paper1.Q2;
 
 public class BST {
     Node root;
+
     public BST() {
-        this.root = new Node('\0'," ");
+        this.root = new Node('\0', " ");
     }
+
     public void insert(char letter, String morse) {
         root = insertHelper(root, letter, morse, 0);
     }
@@ -22,21 +24,23 @@ public class BST {
         }
         return root;
     }
-    private Node searchByLetter(char letter) {
+
+    public Node searchByLetter(char letter) {
         return searchByLetterHelper(root, letter);
     }
 
     private Node searchByLetterHelper(Node root, char letter) {
-        if (root == null) return null;
-        if (root.getLetter().equals(letter)){
-            return root;
-        } else {
-            Node leftSearch = searchByLetterHelper(root.left, letter);
-            if (leftSearch != null) {
-                return leftSearch;
-            }
-            return searchByLetterHelper(root.right, letter);
+        if (root == null) {
+            return null;
         }
+        if (root.getLetter().getCharacter() == letter) {
+            return root;
+        }
+        Node leftSearch = searchByLetterHelper(root.left, letter);
+        if (leftSearch != null) {
+            return leftSearch;
+        }
+        return searchByLetterHelper(root.right, letter);
     }
 
     public void encrypt(String string) {
@@ -47,10 +51,24 @@ public class BST {
             if (node != null) {
                 sb.append(node.getLetter().getMorse()).append("/");
             } else {
-                System.out.println("Error: Character " + c + " not found in the tree!");
+                sb.append("?");  // Append a placeholder for characters not found
             }
         }
         System.out.println(sb.toString());
     }
 
+    public void inOrder() {
+        inOrderHelper(root);
+        System.out.println();
+    }
+
+    private void inOrderHelper(Node root) {
+        if (root != null) {
+            inOrderHelper(root.left);
+            if (root.getLetter().getCharacter() != '\0') {  // Don't print the root placeholder
+                System.out.print(root.getLetter().getCharacter() + " ");
+            }
+            inOrderHelper(root.right);
+        }
+    }
 }
