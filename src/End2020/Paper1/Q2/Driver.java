@@ -7,6 +7,6 @@ public class Driver {
         for (String ipAddress : ipAddresses) {
             classArray.sortToClass(ipAddress);
         }
-        IPAddress ipAddress = new IPAddress();
+//        IPAddress ipAddress = new IPAddress();
     }
 }

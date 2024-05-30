@@ -5,15 +5,15 @@ public class BST {
     public BST() {
         this.root = null;
     }
-    public void insert(String address){root = insertHelper(root,address);}
-    public Node insertHelper(Node root, String address){
-        Node node = new Node(address);
-        if (root == null){
-            root = node;
-        } else {
-            if ()
-        }
-    }
+//    public void insert(String address){root = insertHelper(root,address);}
+//    public Node insertHelper(Node root, String address){
+//        Node node = new Node(address);
+//        if (root == null){
+//            root = node;
+//        } else {
+//            if ()
+//        }
+//    }
 //    public int getLevel(String address){}
 //    private Node getLevelHelper(Node root, String address){}
 //    public void delete(String address){}
