@@ -1,36 +1,49 @@
 package End2020.Paper2.Q2;
 
-public class BST {
+class BST {
     Node root;
-    public BST() {
-        this.root = new Node("pdnml");
+
+    BST() {
+        root = null;
     }
-    public void insert(String tag){
-        root = insertHelper(root, tag);
+
+    void insert(String tag, boolean isAfterClosingTag) {
+        root = insertRec(root, tag, isAfterClosingTag);
     }
-    private Node insertHelper(Node root, String tag){
-        TAG_TYPE tag_type = HelperClass.getTagType(tag);
-        if (root == null){
-            return new Node(tag);
+
+    private Node insertRec(Node root, String tag, boolean isAfterClosingTag) {
+        if (root == null) {
+            root = new Node(tag);
+            return root;
+        }
+
+        if (isAfterClosingTag) {
+            if (root.right == null) {
+                root.right = new Node(tag);
+            } else {
+                insertRec(root.right, tag, isAfterClosingTag);
+            }
         } else {
-            if (tag_type == TAG_TYPE.opening){
-                root.left = insertHelper(root.left,tag);
-            } else if (tag_type == TAG_TYPE.closing) {
-                return root;
+            if (root.left == null) {
+                root.left = new Node(tag);
+            } else {
+                insertRec(root.left, tag, isAfterClosingTag);
             }
         }
+
         return root;
     }
-    public void display() {
-        displayHelper(root);
+
+
+    void inorder() {
+        inorderRec(root);
     }
-    private void displayHelper(Node node) {
-        if (node != null) {
-            displayHelper(node.left);
-            System.out.print(node.getTagName()+", ");
-            displayHelper(node.right);
+
+    private void inorderRec(Node root) {
+        if (root != null) {
+            inorderRec(root.left);
+            System.out.println(root.getTagName());
+            inorderRec(root.right);
         }
     }
-
-
 }
