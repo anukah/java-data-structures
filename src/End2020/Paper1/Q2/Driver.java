@@ -8,5 +8,12 @@ public class Driver {
             IP_Address.insert(address);
         }
         IP_Address.display();
+        System.out.println();
+        IP_Address.printIPsAtLevel(0);
+        IP_Address.removeMaxFromClass("Class_A");
+        System.out.println();
+        IP_Address.display();
     }
+
+
 }

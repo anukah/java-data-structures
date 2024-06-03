@@ -20,7 +20,6 @@ public class IP_Address {
         }
         return null;
     }
-
     public void insert(String address){
         if (address!=null) {
             if (Objects.equals(determineClass(address), "Class_A")){
@@ -32,12 +31,42 @@ public class IP_Address {
             }
         }
     }
-
     public void display(){
         System.out.println("Class_A : " + root.left.display());
         System.out.println("Class_B : " + root.middle.display());
         System.out.println("Class_C : " + root.right.display());
     }
 
+    public void printIPsAtLevel(int level) {
+        StringBuilder sb = new StringBuilder();
+        root.left.getIPAtLevel(level, sb);    // For Class A
+        root.middle.getIPAtLevel(level, sb);  // For Class B
+        root.right.getIPAtLevel(level, sb);   // For Class C
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 2); // Remove the trailing comma and space
+        }
+        System.out.println(sb.toString());
+    }
+
+    public void removeMaxFromClass(String className){
+        if (className.equals("Class_A")){
+            String max = root.left.findMax();
+            if (max!=null){
+                root.left.removeHighest();
+            }
+        } else if (className.equals("Class_B")){
+            String max = root.middle.findMax();
+            if (max!=null){
+                root.middle.removeHighest();
+            }
+        } else if (className.equals("Class_C")){
+            String max = root.right.findMax();
+            if (max!=null){
+                root.right.removeHighest();
+            }
+        } else {
+            System.out.println("Invalid class name. (Class_A, Class_B, or Class_).");
+        }
+    }
 
 }
