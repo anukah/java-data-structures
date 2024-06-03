@@ -7,5 +7,6 @@ public class Driver {
         for (String address: addresses) {
             IP_Address.insert(address);
         }
+        IP_Address.display();
     }
 }

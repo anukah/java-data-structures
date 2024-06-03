@@ -7,8 +7,8 @@ public class IP_Address_Node {
 
     public IP_Address_Node() {
         String ip_address = "IP_Address";
-        this.left = null;
-        this.middle = null;
-        this.right = null;
+        this.left = new BST();
+        this.middle = new BST();
+        this.right = new BST();
     }
 }

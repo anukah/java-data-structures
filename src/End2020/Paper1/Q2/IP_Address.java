@@ -33,5 +33,11 @@ public class IP_Address {
         }
     }
 
+    public void display(){
+        System.out.println("Class_A : " + root.left.display());
+        System.out.println("Class_B : " + root.middle.display());
+        System.out.println("Class_C : " + root.right.display());
+    }
+
 
 }
