@@ -1,49 +1,54 @@
 package End2020.Paper2.Q2;
 
-class BST {
+public class BST {
     Node root;
-
-    BST() {
-        root = null;
+    public BST() {
+        this.root = null;
     }
 
-    void insert(String tag, boolean isAfterClosingTag) {
-        root = insertRec(root, tag, isAfterClosingTag);
+    public void insert(String[] line){
+        for (int i = 0; i < line.length; i++) {
+            if (i+1 != line.length) {
+                root = insertRec(this.root, line[i], line[i+1]);
+            }
+        }
     }
 
-    private Node insertRec(Node root, String tag, boolean isAfterClosingTag) {
-        if (root == null) {
-            root = new Node(tag);
-            return root;
-        }
-
-        if (isAfterClosingTag) {
-            if (root.right == null) {
-                root.right = new Node(tag);
-            } else {
-                insertRec(root.right, tag, isAfterClosingTag);
+    public Node insertRec(Node root,String line, String nextLine){
+        Node newNode = new Node(line);
+        if(root == null){
+            if (HelperClass.getTagType(nextLine) == TAG_TYPE.content) {
+                newNode.setContent(HelperClass.getVar(nextLine)[0]);
             }
-        } else {
-            if (root.left == null) {
-                root.left = new Node(tag);
-            } else {
-                insertRec(root.left, tag, isAfterClosingTag);
+            return newNode;
+        }else{
+            if(HelperClass.getTagType(line) == TAG_TYPE.opening) {
+                if(HelperClass.getTagType(nextLine) == TAG_TYPE.closing){
+                    root.closed = true;
+                }
+                if(root.left != null){
+                    if(root.left.closed){
+                        root.right = insertRec(root.right, line, nextLine);
+                    }else{
+                        root.left = insertRec(root.left, line, nextLine);
+                    }
+                }else {
+                    root.left = insertRec(null, line, nextLine);
+                }
             }
         }
-
         return root;
     }
-
-
-    void inorder() {
-        inorderRec(root);
+    public void inOrder(){
+        inOrderRec(root);
     }
-
-    private void inorderRec(Node root) {
-        if (root != null) {
-            inorderRec(root.left);
+    private void inOrderRec(Node root){
+        if (root!=null) {
+            inOrderRec(root.left);
             System.out.println(root.getTagName());
-            inorderRec(root.right);
+            inOrderRec(root.right);
         }
     }
+
 }
+

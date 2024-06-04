@@ -1,31 +1,31 @@
 pdnml
-table
-thead
-row, className=headrow,id=head-section
-item
-Content 0
-/item
-item
-Content 1
-/item
-/row
-/thead
-tbody
-group
-row,id=body-section,className=bodyrow
-item
-Content 2
-/item
-item
-Content 3
-/item
-/row
-/group
-/tbody
-/table
-metadata
-tablename
-Table Title
-/tablename
-/metadata
+    table
+        thead
+            row, className=headrow,id=head-section
+                item
+                Content 0
+                /item
+                item
+                Content 1
+                /item
+            /row
+        /thead
+        tbody
+            group
+                row,id=body-section,className=bodyrow
+                    item
+                    Content 2
+                    /item
+                    item
+                    Content 3
+                    /item
+                /row
+            /group
+        /tbody
+    /table
+    metadata
+        tablename
+        Table Title
+        /tablename
+    /metadata
 /pdnml
