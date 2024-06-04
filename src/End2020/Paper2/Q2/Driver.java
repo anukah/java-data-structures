@@ -1,23 +1,21 @@
 package End2020.Paper2.Q2;
 
 import java.io.IOException;
+
 public class Driver {
     public static void main(String[] args) throws IOException {
+        String[] arr = HelperClass.readLinesToArray();
+        String[] trimmed = new String[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            trimmed[i] = arr[i].trim();
+        }
         BST bst = new BST();
-        String[] lines = HelperClass.readLinesToArray();
-
-        boolean isAfterClosingTag = false;
-        for (String line : lines) {
-            TAG_TYPE tagType = HelperClass.getTagType(line.trim());
-            if (tagType == TAG_TYPE.closing) {
-                isAfterClosingTag = true;
-            } else if (tagType == TAG_TYPE.opening) {
-                bst.insert(line, isAfterClosingTag);
-                isAfterClosingTag = false;
-            }
+        bst.insert(trimmed);
+        System.out.println(bst.root.getTagName());
+        if (bst.root.left != null) {
+            System.out.println(bst.root.left.getTagName());
         }
 
-        // Print the inorder traversal of the BST
-        bst.inorder();
     }
+
 }

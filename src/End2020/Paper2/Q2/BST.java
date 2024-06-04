@@ -1,49 +1,31 @@
 package End2020.Paper2.Q2;
 
-class BST {
+public class BST {
     Node root;
-
-    BST() {
-        root = null;
+    public BST() {
+        this.root = null;
     }
-
-    void insert(String tag, boolean isAfterClosingTag) {
-        root = insertRec(root, tag, isAfterClosingTag);
+    public void insert(String[] tags) {
+        boolean lastWasClosing = false;
+        for (String tag : tags) {
+            TAG_TYPE tagType = HelperClass.getTagType(tag);
+            if (tagType == TAG_TYPE.opening) {
+                root = insertHelper(root, tag, lastWasClosing);
+                lastWasClosing = false;
+            } else if (tagType == TAG_TYPE.closing) {
+                lastWasClosing = true;
+            }
+        }
     }
-
-    private Node insertRec(Node root, String tag, boolean isAfterClosingTag) {
+    private Node insertHelper(Node root, String tag, boolean lastWasClosing) {
         if (root == null) {
-            root = new Node(tag);
-            return root;
+            return new Node(tag);
         }
-
-        if (isAfterClosingTag) {
-            if (root.right == null) {
-                root.right = new Node(tag);
-            } else {
-                insertRec(root.right, tag, isAfterClosingTag);
-            }
+        if (lastWasClosing) {
+            root.right = insertHelper(root.right, tag, false);
         } else {
-            if (root.left == null) {
-                root.left = new Node(tag);
-            } else {
-                insertRec(root.left, tag, isAfterClosingTag);
-            }
+            root.left = insertHelper(root.left, tag, false);
         }
-
         return root;
-    }
-
-
-    void inorder() {
-        inorderRec(root);
-    }
-
-    private void inorderRec(Node root) {
-        if (root != null) {
-            inorderRec(root.left);
-            System.out.println(root.getTagName());
-            inorderRec(root.right);
-        }
     }
 }
