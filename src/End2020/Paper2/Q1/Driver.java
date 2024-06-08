@@ -5,16 +5,21 @@ public class Driver {
         int Beds_required = 0;
         int[] admission = {100, 140, 150, 200, 215, 400};
         int[] discharge = {110, 300, 220, 230, 315, 600};
-        sort(admission);
-        for (int i: sort(admission)) {
-            System.out.println(i);
-        }
-        sort(discharge);
-        System.out.println(selectMin(sort(admission),sort(discharge)));
 
+        sort(admission);
+        sort(discharge);
+
+        System.out.println("Sorted admission times: ");
+        display(admission);
+        System.out.println("Sorted discharge times: ");
+        display(discharge);
+
+        int maxBedsRequired = selectMin(admission, discharge);
+        System.out.println("Maximum beds required: " + maxBedsRequired);
     }
-    public static int[] sort(int[] arr) {
-        //bubbleSort
+
+    public static void sort(int[] arr) {
+        // Bubble sort
         int n = arr.length;
         boolean swapped;
         for (int i = 0; i < n - 1; i++) {
@@ -29,19 +34,33 @@ public class Driver {
             }
             if (!swapped) break;
         }
-        return arr;
     }
 
-    public static int selectMin(int[] arr1, int[] arr2){
-        Queue queue = new Queue();
-        for (int i : arr1){
-            queue.enqueue(i);
-            queue.enqueue(i);
+    public static int selectMin(int[] admission, int[] discharge) {
+        int Beds_required = 0;
+        int maxBedsRequired = 0;
+        int i = 0, j = 0;
+
+        while (i < admission.length && j < discharge.length) {
+            if (admission[i] < discharge[j]) {
+                Beds_required++;
+                i++;
+            } else {
+                Beds_required--;
+                j++;
+            }
+            if (Beds_required > maxBedsRequired) {
+                maxBedsRequired = Beds_required;
+            }
         }
-        return queue.front.data;
+
+        return maxBedsRequired;
     }
 
-    public static void counter(int[] arr1, int[] arr2){
-
+    public static void display(int[] arr){
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+", ");
+        }
+        System.out.println();
     }
 }
