@@ -1,7 +1,5 @@
 package LinkedLists.Doubly;
 
-import com.sun.jndi.toolkit.ctx.HeadTail;
-
 public class LinkedList {
     Node head;
     Node tail;

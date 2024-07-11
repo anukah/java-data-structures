@@ -1,7 +1,5 @@
 package End2021.Paper1.Q1;
 
-import javax.xml.bind.NotIdentifiableEvent;
-
 public class LinkedList {
     Node front;
     Node rear;

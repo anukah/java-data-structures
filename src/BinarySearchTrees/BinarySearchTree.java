@@ -45,6 +45,19 @@ public class BinarySearchTree {
             return searchLevelRecursive(root.right, data, level + 1);
         }
     }
+    public void getSum(){
+        if (root == null) System.out.println("Empty Tree");
+        System.out.println("Sum of all Nodes : " + getSumHelper(root));
+    }
+
+    private int getSumHelper(Node root){
+        if (root == null) return 0;
+        else {
+            int left = getSumHelper(root.left);
+            int right = getSumHelper(root.right);
+            return left+right+root.key;
+        }
+    }
     public void deleteNode(int key){ root = deleteHelper(root, key); }
     private Node deleteHelper(Node root, int data) {
         if (root == null) {
