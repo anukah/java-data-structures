@@ -20,5 +20,6 @@ public class Main {
         binarySearchTree.postorder();
         binarySearchTree.searchLevel(50);
         System.out.println(binarySearchTree.search(50).key);
+        binarySearchTree.getSum();
     }
 }
