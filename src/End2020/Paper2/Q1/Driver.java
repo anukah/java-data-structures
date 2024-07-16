@@ -2,65 +2,39 @@ package End2020.Paper2.Q1;
 
 public class Driver {
     public static void main(String[] args) {
-        int Beds_required = 0;
-        int[] admission = {100, 140, 150, 200, 215, 400};
-        int[] discharge = {110, 300, 220, 230, 315, 600};
-
-        sort(admission);
-        sort(discharge);
-
-        System.out.println("Sorted admission times: ");
-        display(admission);
-        System.out.println("Sorted discharge times: ");
-        display(discharge);
-
-        int maxBedsRequired = selectMin(admission, discharge);
-        System.out.println("Maximum beds required: " + maxBedsRequired);
-    }
-
-    public static void sort(int[] arr) {
-        // Bubble sort
-        int n = arr.length;
-        boolean swapped;
-        for (int i = 0; i < n - 1; i++) {
-            swapped = false;
-            for (int j = 0; j < n - 1 - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                    swapped = true;
-                }
-            }
-            if (!swapped) break;
+        int[] admission = {100,140,150,200,215,400};
+        int[] discharge = {110,300,220,230,315,600};
+        PriorityQueue sortedAdmission = new PriorityQueue();
+        PriorityQueue sortedDischarge = new PriorityQueue();
+        for (int k : admission) {
+            sortedAdmission.enqueue(k);
         }
+        for (int j : discharge) {
+            sortedDischarge.enqueue(j);
+        }
+        calculateBedsRequired(sortedAdmission,sortedDischarge);
+
     }
 
-    public static int selectMin(int[] admission, int[] discharge) {
-        int Beds_required = 0;
+    public static void calculateBedsRequired(PriorityQueue admissions, PriorityQueue discharge) {
+        int beds_Required = 0;
         int maxBedsRequired = 0;
-        int i = 0, j = 0;
+        Node tempA = admissions.front;
+        Node tempD = discharge.front;
 
-        while (i < admission.length && j < discharge.length) {
-            if (admission[i] < discharge[j]) {
-                Beds_required++;
-                i++;
+        while (tempA != null && tempD != null) {
+            if (tempA.getData() <= tempD.getData()) {
+                beds_Required++;
+                tempA = tempA.next;
             } else {
-                Beds_required--;
-                j++;
+                beds_Required--;
+                tempD = tempD.next;
             }
-            if (Beds_required > maxBedsRequired) {
-                maxBedsRequired = Beds_required;
+            if (beds_Required > maxBedsRequired) {
+                maxBedsRequired = beds_Required;
             }
         }
 
-        return maxBedsRequired;
-    }
-
-    public static void display(int[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]+", ");
-        }
-        System.out.println();
+        System.out.println("Max beds required = " + maxBedsRequired);
     }
 }
