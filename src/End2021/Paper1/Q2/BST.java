@@ -2,73 +2,99 @@ package End2021.Paper1.Q2;
 
 public class BST {
     Node root;
-
     public BST() {
-        this.root = new Node('\0', " ");
+        this.root = null;
     }
 
-    public void insert(char letter, String morse) {
-        root = insertHelper(root, letter, morse, 0);
+    public void insert(char letter, String morse){
+        root = insertRec(root,letter,morse,0);
     }
-
-    private Node insertHelper(Node root, char letter, String morse, int index) {
+    private Node insertRec(Node root, char letter, String morseCode, int index) {
         if (root == null) {
-            root = new Node(letter, morse);
-        }
-        if (index < morse.length()) {
-            if (morse.charAt(index) == '.') {
-                root.left = insertHelper(root.left, letter, morse, index + 1);
-            } else if (morse.charAt(index) == '-') {
-                root.right = insertHelper(root.right, letter, morse, index + 1);
+            if (index == morseCode.length()) {
+                return new Node(letter, morseCode);
+            } else {
+                root = new Node(' ', "");
             }
+        }
+        if (index < morseCode.length()) {
+            if (morseCode.charAt(index) == '.') {
+                root.left = insertRec(root.left, letter, morseCode, index + 1);
+            } else if (morseCode.charAt(index) == '-') {
+                root.right = insertRec(root.right, letter, morseCode, index + 1);
+            }
+        } else {
+            root.getLetter().setLetter(letter);
+            root.getLetter().setMorse(morseCode);
         }
         return root;
     }
 
-    public Node searchByLetter(char letter) {
-        return searchByLetterHelper(root, letter);
+    public void inOrder(){
+        inOrderRec(root);
+    }
+    private void inOrderRec(Node root){
+        if (root!=null) {
+            inOrderRec(root.left);
+            if (root.getLetter().getLetter()!=' ') {
+                System.out.print(root.getLetter().getLetter() + ", ");
+            }
+            inOrderRec(root.right);
+        }
     }
 
-    private Node searchByLetterHelper(Node root, char letter) {
-        if (root == null) {
-            return null;
-        }
-        if (root.getLetter().getCharacter() == letter) {
+    public Node searchByLetter(char letter){
+        return searchByLetterRec(root,letter);
+    }
+    private Node searchByLetterRec(Node root, char letter){
+        if (root == null) return root;
+        else if (root.getLetter()!=null && root.getLetter().getLetter() == letter){
             return root;
+        } else {
+            Node ret = searchByLetterRec(root.left,letter);
+            if (ret == null){
+                ret = searchByLetterRec(root.right,letter);
+            }
+            return ret;
         }
-        Node leftSearch = searchByLetterHelper(root.left, letter);
-        if (leftSearch != null) {
-            return leftSearch;
-        }
-        return searchByLetterHelper(root.right, letter);
     }
 
-    public void encrypt(String string) {
+    public char searchByMorse(String morse){
+        if (morse.isEmpty()){
+            return ' ';
+        }
+        Node temp = root;
+        for (int i = 0; i < morse.length(); i++) {
+            if (morse.charAt(i) == '.'){
+                temp = temp.left;
+            } if (morse.charAt(i) =='-'){
+                temp = temp.right;
+            }
+        }
+        if (temp == null) return ' ';
+        return temp.getLetter().getLetter();
+    }
+
+    public void decrypt(String morse){
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.toLowerCase().charAt(i);
-            Node node = searchByLetter(c);
-            if (node != null) {
-                sb.append(node.getLetter().getMorse()).append("/");
-            } else {
-                sb.append("?");  // Append a placeholder for characters not found
+        String[] morseCodes = morse.split("/");
+        for (int i = 0; i < morseCodes.length; i++) {
+            if (searchByMorse(morseCodes[i])!='\0'){
+                sb.append(searchByMorse(morseCodes[i]));
             }
         }
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
-
-    public void inOrder() {
-        inOrderHelper(root);
-        System.out.println();
-    }
-
-    private void inOrderHelper(Node root) {
-        if (root != null) {
-            inOrderHelper(root.left);
-            if (root.getLetter().getCharacter() != '\0') {  // Don't print the root placeholder
-                System.out.print(root.getLetter().getCharacter() + " ");
-            }
-            inOrderHelper(root.right);
+    public void encrypt(String word){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            if (searchByLetter(word.charAt(i)).getLetter()==null){
+                sb.append("/");
+            } else sb.append(searchByLetter(word.charAt(i)).getLetter().getMorse() + "/");
         }
+        System.out.println(sb);
     }
+
+
+
 }

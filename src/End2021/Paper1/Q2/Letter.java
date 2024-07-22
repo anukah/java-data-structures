@@ -1,18 +1,18 @@
 package End2021.Paper1.Q2;
 
 public class Letter {
-    private char character;
+    private char letter;
     private String morse;
     public Letter(char letter, String morse) {
-        this.character = letter;
+        this.letter = letter;
         this.morse = morse;
     }
-    public char getCharacter() {
-        return character;
+    public char getLetter() {
+        return letter;
     }
 
-    public void setCharacter(char letter) {
-        this.character = letter;
+    public void setLetter(char letter) {
+        this.letter = letter;
     }
 
     public String getMorse() {
