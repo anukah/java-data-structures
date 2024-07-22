@@ -1,20 +1,21 @@
 package End2021.Paper2.Q2;
 
-class Node {
-    private char character;
-    private String characterCode;
+public class Node {
+    private Letter letter;
     protected Node left;
     protected Node right;
+
     public Node(char character, String characterCode) {
-        this.character = character;
-        this.characterCode = characterCode;
+        this.letter = new Letter(character, characterCode);
         this.left = null;
         this.right = null;
     }
-    public char getCharacter() {
-        return character;
+
+    public Letter getLetter() {
+        return letter;
     }
-    public String getCharacterCode() {
-        return characterCode;
+
+    public void setLetter(Letter letter) {
+        this.letter = letter;
     }
 }

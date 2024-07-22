@@ -14,7 +14,6 @@ public class Main {
         for (int i = 0; i < letters.length; i++) {
             bst.insert(letters[i],morseCodes[i]);
         }
-        bst.inOrder();
         System.out.println();
         bst.decrypt("--/././-//--/.//.-/-//-.--./--.../---.../-----/-----/-.--.-//.--./--/");
         bst.encrypt("MEET ME AT (7:00) PM");

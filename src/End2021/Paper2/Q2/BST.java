@@ -1,99 +1,104 @@
 package End2021.Paper2.Q2;
+
+
 public class BST {
     Node root;
 
     public BST() {
-        this.root = new Node('\0', "");
+        this.root = null;
     }
 
     public void insert(char character, String characterCode) {
-        root = insertHelper(root, character, characterCode, 0);
+        root = insertRec(root, character, characterCode, 0);
     }
 
-    private Node insertHelper(Node root, char character, String characterCode, int index) {
+    private Node insertRec(Node root, char character, String characterCode, int index) {
         if (root == null) {
-            root = new Node(character, characterCode);
+            if (index == characterCode.length()) {
+                return new Node(character, characterCode);
+            } else {
+                root = new Node(' ', "");
+            }
         }
         if (index < characterCode.length()) {
-            if (characterCode.charAt(index) == '0') {
-                root.left = insertHelper(root.left, character, characterCode, index + 1);
-            } else if (characterCode.charAt(index) == '1') {
-                root.right = insertHelper(root.right, character, characterCode, index + 1);
-            }
+            if (characterCode.charAt(index) == '0') root.left = insertRec(root.left, character, characterCode, index + 1);
+            else if (characterCode.charAt(index) == '1') root.right = insertRec(root.right, character, characterCode, index + 1);
+        } else {
+            root.getLetter().setCharacter(character);
+            root.getLetter().setCharacterCode(characterCode);
         }
         return root;
     }
+
     public Node searchByCharacter(char character) {
-        return searchByCharacterHelper(root, character);
+        character = Character.toLowerCase(character);
+        Node ret = searchByCharacterRec(root, character);
+        return (ret == null) ? null : ret;
     }
 
-    private Node searchByCharacterHelper(Node root, char character) {
-        if (root == null) {
-            return null;
-        }
-        if (root.getCharacter() == character) {
+    private Node searchByCharacterRec(Node root, char character) {
+        if (root == null) return null;
+        else if (root.getLetter() != null && root.getLetter().getCharacter() == character) {
             return root;
+        } else {
+            Node ret = searchByCharacterRec(root.left, character);
+            if (ret == null) ret = searchByCharacterRec(root.right, character);
+            return ret;
         }
-        Node leftSearch = searchByCharacterHelper(root.left, character);
-        if (leftSearch != null) {
-            return leftSearch;
-        }
-        return searchByCharacterHelper(root.right, character);
     }
 
-    public Node searchByCharacterCode(String characterCode) {
-        return searchByCharacterHelper(root, characterCode);
-    }
-
-    private Node searchByCharacterHelper(Node root, String characterCode) {
-        if (root == null) {
-            return null;
-        }
-        if (root.getCharacterCode().equals(characterCode)){
-            return root;
-        }
-        Node leftSearch = searchByCharacterHelper(root.left, characterCode);
-        if (leftSearch != null) {
-            return leftSearch;
-        }
-        return searchByCharacterHelper(root.right, characterCode);
-    }
-
-    public void encrypt(String string) {
+    public void encrypt(String phrase) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.toLowerCase().charAt(i);
-            if (c == ' ') {
-                sb.append("@/");
+        for (int i = 0; i < phrase.length(); i++) {
+            if (phrase.charAt(i) == ' ') sb.append("@/");
+            else if (phrase.charAt(i) == ',' && i + 1 < phrase.length() && phrase.charAt(i + 1) == '@') {
+                sb.append(",/");
+                i++;
             } else {
-                Node node = searchByCharacter(c);
-                if (node != null) {
-                    sb.append(node.getCharacterCode()).append("_").append(i).append("/");
-                } else {
-                    sb.append(c).append("_").append(i).append("/");
+                Node node = searchByCharacter(phrase.charAt(i));
+                if (node != null && node.getLetter() != null) {
+                    sb.append(node.getLetter().getCharacterCode() + "_" + (i + 1) + "/");
                 }
             }
         }
-        System.out.println(sb);
+        System.out.println(sb.toString());
     }
 
-    public void decrypt(String encryptedString) {
+    public void decrypt(String toDecrypt) {
         StringBuilder sb = new StringBuilder();
-        String[] parts = encryptedString.split("/");
-        for (String part : parts) {
-            if (part.equals("@")) {
-                sb.append(" ");
-            } else if (!part.isEmpty()) {
-                String[] subParts = part.split("_");
-                String code = subParts[0];
-                Node node = searchByCharacterCode(code);
-                if (node != null) {
-                    sb.append(node.getCharacter());
+        String[] dec = toDecrypt.toLowerCase().strip().split("/");
+
+        for (String morseCode : dec) {
+            if (!morseCode.equals("")) {
+                if (morseCode.equals(",@")) {
+                    sb.append(',');
+                } else if (morseCode.equals("@")) {
+                    sb.append(" ");
                 } else {
-                    sb.append(code);
+                    String characterCode = morseCode.split("_")[0];
+                    char letter = searchByCharacterCode(characterCode);
+                    sb.append(letter);
                 }
             }
         }
-        System.out.println(sb);
+        System.out.println(sb.toString());
+    }
+
+    public char searchByCharacterCode(String characterCode) {
+        if (characterCode.equals("@")) {
+            return ' ';
+        }
+        Node temp = root;
+        for (int i = 0; i < characterCode.length(); i++) {
+            if (characterCode.charAt(i) == '0') {
+                temp = temp.left;
+            } else if (characterCode.charAt(i) == '1') {
+                temp = temp.right;
+            }
+            if (temp == null || temp.getLetter() == null) {
+                return ' ';
+            }
+        }
+        return temp.getLetter().getCharacter();
     }
 }

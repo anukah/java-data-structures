@@ -30,19 +30,6 @@ public class BST {
         return root;
     }
 
-    public void inOrder(){
-        inOrderRec(root);
-    }
-    private void inOrderRec(Node root){
-        if (root!=null) {
-            inOrderRec(root.left);
-            if (root.getLetter().getLetter()!=' ') {
-                System.out.print(root.getLetter().getLetter() + ", ");
-            }
-            inOrderRec(root.right);
-        }
-    }
-
     public Node searchByLetter(char letter){
         return searchByLetterRec(root,letter);
     }
