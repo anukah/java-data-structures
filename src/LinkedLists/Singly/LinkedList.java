@@ -96,22 +96,27 @@ public class LinkedList{
         System.out.println("prev node does not exist!");
     }
 
-    public void delete(int value){
-        if(head == null){
+    public void delete(int val) {
+        if (isEmpty()) {
             return;
         }
-        if(head.getData() == value){
+        if (head.getData() == val) {
             head = head.getNext();
+            if (head == null) {
+                tail = null;
+            }
             return;
         }
         Node temp = head;
-        while(temp!=null){
-            if(temp.getNext().getData() == value){
+        while (temp.getNext() != null) {
+            if (temp.getNext().getData() == val) {
+                if (temp.getNext() == tail) {
+                    tail = temp;
+                }
                 temp.setNext(temp.getNext().getNext());
                 return;
             }
             temp = temp.getNext();
         }
-        System.out.println("value does not exist!");
     }
 }
