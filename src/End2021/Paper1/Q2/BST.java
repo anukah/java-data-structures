@@ -2,34 +2,34 @@ package End2021.Paper1.Q2;
 
 public class BST {
     Node root;
+
     public BST() {
-        this.root = null;
+        this.root = new Node(' ', "");
     }
 
-    public void insert(char letter, String morse){
-        root = insertRec(root,letter,morse,0);
+    public void insert(char letter, String morse) {
+        insertRec(root, letter, morse, 0);
     }
-    private Node insertRec(Node root, char letter, String morseCode, int index) {
-        if (root == null) {
-            if (index == morseCode.length()) {
-                return new Node(letter, morseCode);
-            } else {
-                root = new Node(' ', "");
-            }
-        }
+
+    private void insertRec(Node root, char letter, String morseCode, int index) {
         if (index < morseCode.length()) {
             if (morseCode.charAt(index) == '.') {
-                root.left = insertRec(root.left, letter, morseCode, index + 1);
+                if (root.left == null) {
+                    root.left = new Node(' ', "");
+                }
+                insertRec(root.left, letter, morseCode, index + 1);
             } else if (morseCode.charAt(index) == '-') {
-                root.right = insertRec(root.right, letter, morseCode, index + 1);
+                if (root.right == null) {
+                    root.right = new Node(' ', "");
+                }
+                insertRec(root.right, letter, morseCode, index + 1);
             }
         } else {
             root.getLetter().setLetter(letter);
             root.getLetter().setMorse(morseCode);
         }
-        return root;
     }
-
+    
     public Node searchByLetter(char letter){
         return searchByLetterRec(root,letter);
     }
