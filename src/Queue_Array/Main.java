@@ -2,29 +2,15 @@ package Queue_Array;
 
 public class Main {
     public static void main(String[] args) {
-        Stack stack = new Stack(5);
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        stack.push(4);
-        stack.push(5);
-        stack.push(6);
-        stack.display();
-        System.out.println();
-        stack.pop();
-        stack.display();
-        System.out.println();
-        stack.pop();
-        stack.display();
-        System.out.println();
-        stack.pop();
-        stack.display();
-        System.out.println();
-        stack.pop();
-        stack.display();
-        System.out.println();
-        stack.pop();
-        stack.display();
-        stack.pop();
+        Queue queue = new Queue(5);
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.enqueue(5);
+        queue.dequeue();
+        queue.enqueue(6);
+        queue.dequeue();
+        queue.display();
     }
 }
