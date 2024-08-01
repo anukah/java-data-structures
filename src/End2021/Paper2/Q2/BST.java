@@ -5,29 +5,30 @@ public class BST {
     Node root;
 
     public BST() {
-        this.root = null;
+        this.root = new Node('\0', "");
     }
 
     public void insert(char character, String characterCode) {
-        root = insertRec(root, character, characterCode, 0);
+        insertRec(root, character, characterCode, 0);
     }
 
-    private Node insertRec(Node root, char character, String characterCode, int index) {
-        if (root == null) {
-            if (index == characterCode.length()) {
-                return new Node(character, characterCode);
-            } else {
-                root = new Node(' ', "");
-            }
-        }
+    private void insertRec(Node root, char character, String characterCode, int index) {
         if (index < characterCode.length()) {
-            if (characterCode.charAt(index) == '0') root.left = insertRec(root.left, character, characterCode, index + 1);
-            else if (characterCode.charAt(index) == '1') root.right = insertRec(root.right, character, characterCode, index + 1);
+            if (characterCode.charAt(index) == '0') {
+                if (root.left == null) {
+                    root.left = new Node(' ', "");
+                }
+                insertRec(root.left, character, characterCode, index + 1);
+            } else if (characterCode.charAt(index) == '1') {
+                if (root.right == null) {
+                    root.right = new Node(' ', "");
+                }
+                insertRec(root.right, character, characterCode, index + 1);
+            }
         } else {
             root.getLetter().setCharacter(character);
             root.getLetter().setCharacterCode(characterCode);
         }
-        return root;
     }
 
     public Node searchByCharacter(char character) {
