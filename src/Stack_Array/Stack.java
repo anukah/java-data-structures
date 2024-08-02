@@ -4,8 +4,8 @@ public class Stack{
     int[] stack ;
     int top = 0;
 
-    public Stack(int size) {
-        this.stack = new int[size];
+    public Stack() {
+        this.stack = new int[1];
     }
 
     public void push(int data){

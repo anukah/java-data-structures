@@ -12,5 +12,6 @@ public class Main {
         browser.visit("www.linkedin.com");
         browser.back();
         browser.back();
+        browser.back();
     }
 }

@@ -1,122 +1,92 @@
 package LinkedLists.Singly;
 
-public class LinkedList{
+public class LinkedList {
     Node head;
     Node tail;
-
-    public LinkedList(){
+    public LinkedList() {
         this.head = null;
         this.tail = null;
     }
 
-    public boolean isEmpty(){
-        if(this.head == null){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Node search(int value){
-        if(head == null){
-            return null;
-        }
-        if(head.getData() == value){
-            return head;
-        } else {
-            Node temp = head;
-            while(temp!=null){
-                if(temp.getData() == value){
-                    return temp;
-                }
-                temp = temp.getNext();
-            }
-        }
-        return null;
-    }
-
-    public boolean nodeExists(int value){
-        if(head.getData() == value){
-            return true;
-        } else {
-            Node temp = head;
-            while(temp!=null){
-                if (temp.getData() == value){
-                    return true;
-                }
-                temp = temp.getNext();
-            }
-        }
-        return false;
-    }
-
-    public void display(){
-        Node temp = head;
-        while(temp!=null){
-            System.out.print(temp.getData() + ", ");
-            temp = temp.getNext();
-        }
-
-        System.out.println();
-    }
-
-    public void insertFront(int value) {
-        Node node = new Node(value);
-        if (head == null) {
-            head = node;
+    public boolean isEmpty(){return head == null;}
+    public boolean nodeExists(int val){return false;}
+    public void insertFront(int data){
+        Node node = new Node(data);
+        if (isEmpty()){
             tail = node;
         } else {
             node.setNext(head);
-            head = node;
         }
+        head = node;
     }
-
-    public void insertRear(int value) {
-        Node node = new Node(value);
-        if (head == null) {
+    public void insertRear(int data){
+        Node node = new Node(data);
+        if (isEmpty()){
             head = node;
-            tail = node;
         } else {
             tail.setNext(node);
+        }
+        tail = node;
+
+    }
+    public void insertNext(int prev, int data){
+        if (isEmpty()) return;
+        Node node = new Node(data);
+        if (tail.getData() == prev){
+            tail.setNext(node);
             tail = node;
-        }
-    }
-
-    public void insertNext(int value, int prev) {
-        Node node = new Node(value);
-        Node temp = head;
-        while(temp!=null){
-            if(temp.getData() == prev){
-                node.setNext(temp.getNext());
-                temp.setNext(node);
-                return;
+        } else {
+            Node temp = head;
+            while (temp!=null){
+                if (temp.getData() == prev){
+                    node.setNext(temp.next);
+                    temp.setNext(node);
+                    return;
+                }
+                temp = temp.next;
             }
-            temp = temp.getNext();
         }
-        System.out.println("prev node does not exist!");
     }
-
-    public void delete(int val) {
-        if (isEmpty()) {
-            return;
+    public Node search(int val){
+        if (!isEmpty()){
+            Node temp = head;
+            while (temp!=null){
+                if (temp.getData() == val){
+                    return temp;
+                }
+                temp = temp.next;
+            }
         }
-        if (head.getData() == val) {
-            head = head.getNext();
-            if (head == null) {
+        return null;}
+    public void delete(int val){
+        if (isEmpty()) return;
+        if (head.getData() == val){
+            head = head.next;
+            if (head == null){
                 tail = null;
             }
-            return;
-        }
-        Node temp = head;
-        while (temp.getNext() != null) {
-            if (temp.getNext().getData() == val) {
-                if (temp.getNext() == tail) {
-                    tail = temp;
+        } else {
+            Node temp = head;
+            while (temp.next != null){
+                if (temp.next.getData() == val){
+                    temp.setNext(temp.next.next);
+                    if (temp.getNext() == null){
+                        tail = temp;
+                    }
+                    return;
                 }
-                temp.setNext(temp.getNext().getNext());
-                return;
+                temp = temp.next;
             }
-            temp = temp.getNext();
         }
     }
+    public void display(){
+        if (isEmpty()) return;
+        Node temp = head;
+        while (temp!=null){
+            System.out.print(temp.getData() + ", ");
+            temp = temp.next;
+        }
+    }
+
+
 }
