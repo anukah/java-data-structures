@@ -1,4 +1,4 @@
-package Stacks;
+package Stack;
 
 class Node {
     private int data;

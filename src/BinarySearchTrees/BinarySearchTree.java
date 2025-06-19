@@ -2,10 +2,13 @@ package BinarySearchTrees;
 
 public class BinarySearchTree {
     Node root;
+
     public BinarySearchTree() {
         this.root = null;
     }
+
     public void insertNode(int key){ root = insertHelper(root,key); }
+
     private Node insertHelper(Node root, int key){
         Node node = new Node(key);
         if (root == null){

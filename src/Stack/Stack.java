@@ -1,4 +1,4 @@
-package Stacks;
+package Stack;
 
 public class Stack {
     Node top;
